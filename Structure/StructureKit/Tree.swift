@@ -39,7 +39,7 @@ public class TreeNode<T> {
     }
     
     public func middle(node: TreeNode) {
-        print("|")
+        
         if node.left != nil {
             self.middle(node: node.left!);
         }else{
@@ -51,12 +51,12 @@ public class TreeNode<T> {
         if node.left != nil {
             self.middle(node: node.right!);
         }else{
-            print("口", terminator: "");
+            print("口");
         }
     }
     
     public func last(node: TreeNode) {
-        print("|")
+        
         if node.left != nil {
             self.middle(node: node.left!);
         }else{
@@ -66,7 +66,7 @@ public class TreeNode<T> {
         if node.left != nil {
             self.middle(node: node.right!);
         }else{
-            print("口", terminator: "");
+            print("口");
         }
         
         print(node.value);
@@ -105,5 +105,4 @@ class Tree<T> {
         default: break
         }
     }
-
 }
