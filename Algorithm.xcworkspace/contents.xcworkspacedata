@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:MyPlayground.playground">
+      location = "group:Algorithm.playground">
    </FileRef>
    <FileRef
-      location = "group:Structure/Structure.xcodeproj">
+      location = "group:Algorithm/Algorithm.xcodeproj">
    </FileRef>
 </Workspace>
