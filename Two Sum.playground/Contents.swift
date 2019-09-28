@@ -13,14 +13,14 @@
 //    }
 //    return [];
 //}
-
+[].
 func twoSum2(nums: [Int], target: Int) -> [Int] {
     var numMap = [Int:Int]();
     
     for index1 in 0..<nums.count {
-//        if nums[index1] > target {
-//            continue;
-//        }
+        //        if nums[index1] > target {
+        //            continue;
+        //        }
         
         let key = nums[index1];
         

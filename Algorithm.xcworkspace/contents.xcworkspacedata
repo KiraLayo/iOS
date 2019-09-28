@@ -2,7 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Algorithm.playground">
+      location = "group:IntReverse.playground">
+   </FileRef>
+   <FileRef
+      location = "group:Two Sum.playground">
    </FileRef>
    <FileRef
       location = "group:Algorithm/Algorithm.xcodeproj">

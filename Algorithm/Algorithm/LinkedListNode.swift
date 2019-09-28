@@ -69,7 +69,7 @@ public class LinkedList<T> {
 }
 
 public extension LinkedList {
-    public func node(index:Int) -> Node? {
+    func node(index:Int) -> Node? {
         if 0 == index {
             return head;
         } else {
@@ -87,7 +87,7 @@ public extension LinkedList {
         }
     }
     
-    public func insert(newNode:Node, index:Int){
+    func insert(newNode:Node, index:Int){
         if(index > count) || (index < 0) {
             print("out of range!");
             return;
