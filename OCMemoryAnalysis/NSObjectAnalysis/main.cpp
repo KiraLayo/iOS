@@ -106,8 +106,8 @@ struct __AtAutoreleasePool {
 };
 
 #define __OFFSETOFIVAR__(TYPE, MEMBER) ((long long) &((TYPE *)0)->MEMBER)
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_ml_bnlk4yn55g7dygf57t7djrb40000gn_T_main_82b986_mi_0 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"%zd",3};
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_ml_bnlk4yn55g7dygf57t7djrb40000gn_T_main_82b986_mi_1 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"%zu",3};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_ml_bnlk4yn55g7dygf57t7djrb40000gn_T_main_a711bd_mi_0 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"%zd",3};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_ml_bnlk4yn55g7dygf57t7djrb40000gn_T_main_a711bd_mi_1 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"%zu",3};
 
 
 
@@ -36326,231 +36326,17 @@ extern void malloc_zone_enumerate_discharged_pointers(malloc_zone_t *zone, void 
 
 }
 
-
-#ifndef _REWRITER_typedef_NSObjectSub
-#define _REWRITER_typedef_NSObjectSub
-typedef struct objc_object NSObjectSub;
-typedef struct {} _objc_exc_NSObjectSub;
-#endif
-
-extern "C" unsigned long OBJC_IVAR_$_NSObjectSub$_firstName;
-extern "C" unsigned long OBJC_IVAR_$_NSObjectSub$_lastName;
-extern "C" unsigned long OBJC_IVAR_$_NSObjectSub$_age;
-struct NSObjectSub_IMPL {
-	struct NSObject_IMPL NSObject_IVARS;
-	NSString *_firstName;
-	NSString *_lastName;
-	NSNumber *_age;
-};
-
-
-// @property (copy, nonatomic) NSString *firstName;
-// @property (copy, nonatomic) NSString *lastName;
-// @property (copy, nonatomic) NSNumber *age;
-
-/* @end */
-
-
-// @implementation NSObjectSub
-
-
-static NSString * _I_NSObjectSub_firstName(NSObjectSub * self, SEL _cmd) { return (*(NSString **)((char *)self + OBJC_IVAR_$_NSObjectSub$_firstName)); }
-extern "C" __declspec(dllimport) void objc_setProperty (id, SEL, long, id, bool, bool);
-
-static void _I_NSObjectSub_setFirstName_(NSObjectSub * self, SEL _cmd, NSString *firstName) { objc_setProperty (self, _cmd, __OFFSETOFIVAR__(struct NSObjectSub, _firstName), (id)firstName, 0, 1); }
-
-static NSString * _I_NSObjectSub_lastName(NSObjectSub * self, SEL _cmd) { return (*(NSString **)((char *)self + OBJC_IVAR_$_NSObjectSub$_lastName)); }
-static void _I_NSObjectSub_setLastName_(NSObjectSub * self, SEL _cmd, NSString *lastName) { objc_setProperty (self, _cmd, __OFFSETOFIVAR__(struct NSObjectSub, _lastName), (id)lastName, 0, 1); }
-
-static NSNumber * _I_NSObjectSub_age(NSObjectSub * self, SEL _cmd) { return (*(NSNumber **)((char *)self + OBJC_IVAR_$_NSObjectSub$_age)); }
-static void _I_NSObjectSub_setAge_(NSObjectSub * self, SEL _cmd, NSNumber *age) { objc_setProperty (self, _cmd, __OFFSETOFIVAR__(struct NSObjectSub, _age), (id)age, 0, 1); }
-// @end
-
 int main(int argc, const char * argv[]) {
     /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
 
-        NSObjectSub *obj = ((NSObjectSub *(*)(id, SEL))(void *)objc_msgSend)((id)((NSObjectSub *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass("NSObjectSub"), sel_registerName("alloc")), sel_registerName("init"));
+        NSObject *obj = ((NSObject *(*)(id, SEL))(void *)objc_msgSend)((id)((NSObject *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass("NSObject"), sel_registerName("alloc")), sel_registerName("init"));
 
 
-        NSLog((NSString *)&__NSConstantStringImpl__var_folders_ml_bnlk4yn55g7dygf57t7djrb40000gn_T_main_82b986_mi_0, class_getInstanceSize(((Class (*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass("NSObjectSub"), sel_registerName("class"))));
+        NSLog((NSString *)&__NSConstantStringImpl__var_folders_ml_bnlk4yn55g7dygf57t7djrb40000gn_T_main_a711bd_mi_0, class_getInstanceSize(((Class (*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass("NSObject"), sel_registerName("class"))));
 
 
-        NSLog((NSString *)&__NSConstantStringImpl__var_folders_ml_bnlk4yn55g7dygf57t7djrb40000gn_T_main_82b986_mi_1, malloc_size((__bridge const void *)obj));
-
+        NSLog((NSString *)&__NSConstantStringImpl__var_folders_ml_bnlk4yn55g7dygf57t7djrb40000gn_T_main_a711bd_mi_1, malloc_size((__bridge const void *)obj));
     }
     return 0;
 }
-
-struct _prop_t {
-	const char *name;
-	const char *attributes;
-};
-
-struct _protocol_t;
-
-struct _objc_method {
-	struct objc_selector * _cmd;
-	const char *method_type;
-	void  *_imp;
-};
-
-struct _protocol_t {
-	void * isa;  // NULL
-	const char *protocol_name;
-	const struct _protocol_list_t * protocol_list; // super protocols
-	const struct method_list_t *instance_methods;
-	const struct method_list_t *class_methods;
-	const struct method_list_t *optionalInstanceMethods;
-	const struct method_list_t *optionalClassMethods;
-	const struct _prop_list_t * properties;
-	const unsigned int size;  // sizeof(struct _protocol_t)
-	const unsigned int flags;  // = 0
-	const char ** extendedMethodTypes;
-};
-
-struct _ivar_t {
-	unsigned long int *offset;  // pointer to ivar offset location
-	const char *name;
-	const char *type;
-	unsigned int alignment;
-	unsigned int  size;
-};
-
-struct _class_ro_t {
-	unsigned int flags;
-	unsigned int instanceStart;
-	unsigned int instanceSize;
-	const unsigned char *ivarLayout;
-	const char *name;
-	const struct _method_list_t *baseMethods;
-	const struct _objc_protocol_list *baseProtocols;
-	const struct _ivar_list_t *ivars;
-	const unsigned char *weakIvarLayout;
-	const struct _prop_list_t *properties;
-};
-
-struct _class_t {
-	struct _class_t *isa;
-	struct _class_t *superclass;
-	void *cache;
-	void *vtable;
-	struct _class_ro_t *ro;
-};
-
-struct _category_t {
-	const char *name;
-	struct _class_t *cls;
-	const struct _method_list_t *instance_methods;
-	const struct _method_list_t *class_methods;
-	const struct _protocol_list_t *protocols;
-	const struct _prop_list_t *properties;
-};
-extern "C" __declspec(dllimport) struct objc_cache _objc_empty_cache;
-#pragma warning(disable:4273)
-
-extern "C" unsigned long int OBJC_IVAR_$_NSObjectSub$_firstName __attribute__ ((used, section ("__DATA,__objc_ivar"))) = __OFFSETOFIVAR__(struct NSObjectSub, _firstName);
-extern "C" unsigned long int OBJC_IVAR_$_NSObjectSub$_lastName __attribute__ ((used, section ("__DATA,__objc_ivar"))) = __OFFSETOFIVAR__(struct NSObjectSub, _lastName);
-extern "C" unsigned long int OBJC_IVAR_$_NSObjectSub$_age __attribute__ ((used, section ("__DATA,__objc_ivar"))) = __OFFSETOFIVAR__(struct NSObjectSub, _age);
-
-static struct /*_ivar_list_t*/ {
-	unsigned int entsize;  // sizeof(struct _prop_t)
-	unsigned int count;
-	struct _ivar_t ivar_list[3];
-} _OBJC_$_INSTANCE_VARIABLES_NSObjectSub __attribute__ ((used, section ("__DATA,__objc_const"))) = {
-	sizeof(_ivar_t),
-	3,
-	{{(unsigned long int *)&OBJC_IVAR_$_NSObjectSub$_firstName, "_firstName", "@\"NSString\"", 3, 8},
-	 {(unsigned long int *)&OBJC_IVAR_$_NSObjectSub$_lastName, "_lastName", "@\"NSString\"", 3, 8},
-	 {(unsigned long int *)&OBJC_IVAR_$_NSObjectSub$_age, "_age", "@\"NSNumber\"", 3, 8}}
-};
-
-static struct /*_method_list_t*/ {
-	unsigned int entsize;  // sizeof(struct _objc_method)
-	unsigned int method_count;
-	struct _objc_method method_list[12];
-} _OBJC_$_INSTANCE_METHODS_NSObjectSub __attribute__ ((used, section ("__DATA,__objc_const"))) = {
-	sizeof(_objc_method),
-	12,
-	{{(struct objc_selector *)"firstName", "@16@0:8", (void *)_I_NSObjectSub_firstName},
-	{(struct objc_selector *)"setFirstName:", "v24@0:8@16", (void *)_I_NSObjectSub_setFirstName_},
-	{(struct objc_selector *)"lastName", "@16@0:8", (void *)_I_NSObjectSub_lastName},
-	{(struct objc_selector *)"setLastName:", "v24@0:8@16", (void *)_I_NSObjectSub_setLastName_},
-	{(struct objc_selector *)"age", "@16@0:8", (void *)_I_NSObjectSub_age},
-	{(struct objc_selector *)"setAge:", "v24@0:8@16", (void *)_I_NSObjectSub_setAge_},
-	{(struct objc_selector *)"firstName", "@16@0:8", (void *)_I_NSObjectSub_firstName},
-	{(struct objc_selector *)"setFirstName:", "v24@0:8@16", (void *)_I_NSObjectSub_setFirstName_},
-	{(struct objc_selector *)"lastName", "@16@0:8", (void *)_I_NSObjectSub_lastName},
-	{(struct objc_selector *)"setLastName:", "v24@0:8@16", (void *)_I_NSObjectSub_setLastName_},
-	{(struct objc_selector *)"age", "@16@0:8", (void *)_I_NSObjectSub_age},
-	{(struct objc_selector *)"setAge:", "v24@0:8@16", (void *)_I_NSObjectSub_setAge_}}
-};
-
-static struct /*_prop_list_t*/ {
-	unsigned int entsize;  // sizeof(struct _prop_t)
-	unsigned int count_of_properties;
-	struct _prop_t prop_list[3];
-} _OBJC_$_PROP_LIST_NSObjectSub __attribute__ ((used, section ("__DATA,__objc_const"))) = {
-	sizeof(_prop_t),
-	3,
-	{{"firstName","T@\"NSString\",C,N,V_firstName"},
-	{"lastName","T@\"NSString\",C,N,V_lastName"},
-	{"age","T@\"NSNumber\",C,N,V_age"}}
-};
-
-static struct _class_ro_t _OBJC_METACLASS_RO_$_NSObjectSub __attribute__ ((used, section ("__DATA,__objc_const"))) = {
-	1, sizeof(struct _class_t), sizeof(struct _class_t), 
-	0, 
-	"NSObjectSub",
-	0, 
-	0, 
-	0, 
-	0, 
-	0, 
-};
-
-static struct _class_ro_t _OBJC_CLASS_RO_$_NSObjectSub __attribute__ ((used, section ("__DATA,__objc_const"))) = {
-	0, __OFFSETOFIVAR__(struct NSObjectSub, _firstName), sizeof(struct NSObjectSub_IMPL), 
-	0, 
-	"NSObjectSub",
-	(const struct _method_list_t *)&_OBJC_$_INSTANCE_METHODS_NSObjectSub,
-	0, 
-	(const struct _ivar_list_t *)&_OBJC_$_INSTANCE_VARIABLES_NSObjectSub,
-	0, 
-	(const struct _prop_list_t *)&_OBJC_$_PROP_LIST_NSObjectSub,
-};
-
-extern "C" __declspec(dllimport) struct _class_t OBJC_METACLASS_$_NSObject;
-
-extern "C" __declspec(dllexport) struct _class_t OBJC_METACLASS_$_NSObjectSub __attribute__ ((used, section ("__DATA,__objc_data"))) = {
-	0, // &OBJC_METACLASS_$_NSObject,
-	0, // &OBJC_METACLASS_$_NSObject,
-	0, // (void *)&_objc_empty_cache,
-	0, // unused, was (void *)&_objc_empty_vtable,
-	&_OBJC_METACLASS_RO_$_NSObjectSub,
-};
-
-extern "C" __declspec(dllimport) struct _class_t OBJC_CLASS_$_NSObject;
-
-extern "C" __declspec(dllexport) struct _class_t OBJC_CLASS_$_NSObjectSub __attribute__ ((used, section ("__DATA,__objc_data"))) = {
-	0, // &OBJC_METACLASS_$_NSObjectSub,
-	0, // &OBJC_CLASS_$_NSObject,
-	0, // (void *)&_objc_empty_cache,
-	0, // unused, was (void *)&_objc_empty_vtable,
-	&_OBJC_CLASS_RO_$_NSObjectSub,
-};
-static void OBJC_CLASS_SETUP_$_NSObjectSub(void ) {
-	OBJC_METACLASS_$_NSObjectSub.isa = &OBJC_METACLASS_$_NSObject;
-	OBJC_METACLASS_$_NSObjectSub.superclass = &OBJC_METACLASS_$_NSObject;
-	OBJC_METACLASS_$_NSObjectSub.cache = &_objc_empty_cache;
-	OBJC_CLASS_$_NSObjectSub.isa = &OBJC_METACLASS_$_NSObjectSub;
-	OBJC_CLASS_$_NSObjectSub.superclass = &OBJC_CLASS_$_NSObject;
-	OBJC_CLASS_$_NSObjectSub.cache = &_objc_empty_cache;
-}
-#pragma section(".objc_inithooks$B", long, read, write)
-__declspec(allocate(".objc_inithooks$B")) static void *OBJC_CLASS_SETUP[] = {
-	(void *)&OBJC_CLASS_SETUP_$_NSObjectSub,
-};
-static struct _class_t *L_OBJC_LABEL_CLASS_$ [1] __attribute__((used, section ("__DATA, __objc_classlist,regular,no_dead_strip")))= {
-	&OBJC_CLASS_$_NSObjectSub,
-};
 static struct IMAGE_INFO { unsigned version; unsigned flag; } _OBJC_IMAGE_INFO = { 0, 2 };
