@@ -17,7 +17,7 @@
                BlueprintIdentifier = "4019737C25C8167800ED880B"
                BuildableName = "NSObjectAnalysis"
                BlueprintName = "NSObjectAnalysis"
-               ReferencedContainer = "container:OCMemoryAnalysis.xcodeproj">
+               ReferencedContainer = "container:OCObjcAnalysis.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "4019737C25C8167800ED880B"
             BuildableName = "NSObjectAnalysis"
             BlueprintName = "NSObjectAnalysis"
-            ReferencedContainer = "container:OCMemoryAnalysis.xcodeproj">
+            ReferencedContainer = "container:OCObjcAnalysis.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "4019737C25C8167800ED880B"
             BuildableName = "NSObjectAnalysis"
             BlueprintName = "NSObjectAnalysis"
-            ReferencedContainer = "container:OCMemoryAnalysis.xcodeproj">
+            ReferencedContainer = "container:OCObjcAnalysis.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

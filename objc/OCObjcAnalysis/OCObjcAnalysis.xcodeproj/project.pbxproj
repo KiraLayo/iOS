@@ -8,10 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		4019738825C8175000ED880B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4019738725C8175000ED880B /* main.m */; };
+		40E1481625CBF582002E5463 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E1481525CBF582002E5463 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4019737B25C8167800ED880B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		40E1481125CBF582002E5463 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -25,10 +35,19 @@
 /* Begin PBXFileReference section */
 		4019737D25C8167800ED880B /* NSObjectAnalysis */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NSObjectAnalysis; sourceTree = BUILT_PRODUCTS_DIR; };
 		4019738725C8175000ED880B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		40E1481325CBF582002E5463 /* TaggedPointer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TaggedPointer; sourceTree = BUILT_PRODUCTS_DIR; };
+		40E1481525CBF582002E5463 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		4019737A25C8167800ED880B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40E1481025CBF582002E5463 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				4019737F25C8167800ED880B /* NSObjectAnalysis */,
+				40E1481425CBF582002E5463 /* TaggedPointer */,
 				4019737E25C8167800ED880B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				4019737D25C8167800ED880B /* NSObjectAnalysis */,
+				40E1481325CBF582002E5463 /* TaggedPointer */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +81,14 @@
 				4019738725C8175000ED880B /* main.m */,
 			);
 			path = NSObjectAnalysis;
+			sourceTree = "<group>";
+		};
+		40E1481425CBF582002E5463 /* TaggedPointer */ = {
+			isa = PBXGroup;
+			children = (
+				40E1481525CBF582002E5463 /* main.m */,
+			);
+			path = TaggedPointer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +111,23 @@
 			productReference = 4019737D25C8167800ED880B /* NSObjectAnalysis */;
 			productType = "com.apple.product-type.tool";
 		};
+		40E1481225CBF582002E5463 /* TaggedPointer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40E1481925CBF582002E5463 /* Build configuration list for PBXNativeTarget "TaggedPointer" */;
+			buildPhases = (
+				40E1480F25CBF582002E5463 /* Sources */,
+				40E1481025CBF582002E5463 /* Frameworks */,
+				40E1481125CBF582002E5463 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TaggedPointer;
+			productName = TaggedPointer;
+			productReference = 40E1481325CBF582002E5463 /* TaggedPointer */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -94,9 +140,12 @@
 					4019737C25C8167800ED880B = {
 						CreatedOnToolsVersion = 11.7;
 					};
+					40E1481225CBF582002E5463 = {
+						CreatedOnToolsVersion = 11.7;
+					};
 				};
 			};
-			buildConfigurationList = 4019737825C8167800ED880B /* Build configuration list for PBXProject "OCMemoryAnalysis" */;
+			buildConfigurationList = 4019737825C8167800ED880B /* Build configuration list for PBXProject "OCObjcAnalysis" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -110,6 +159,7 @@
 			projectRoot = "";
 			targets = (
 				4019737C25C8167800ED880B /* NSObjectAnalysis */,
+				40E1481225CBF582002E5463 /* TaggedPointer */,
 			);
 		};
 /* End PBXProject section */
@@ -120,6 +170,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4019738825C8175000ED880B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40E1480F25CBF582002E5463 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40E1481625CBF582002E5463 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,10 +313,30 @@
 			};
 			name = Release;
 		};
+		40E1481725CBF582002E5463 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XBZR8NF32N;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		40E1481825CBF582002E5463 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XBZR8NF32N;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4019737825C8167800ED880B /* Build configuration list for PBXProject "OCMemoryAnalysis" */ = {
+		4019737825C8167800ED880B /* Build configuration list for PBXProject "OCObjcAnalysis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4019738225C8167800ED880B /* Debug */,
@@ -272,6 +350,15 @@
 			buildConfigurations = (
 				4019738525C8167800ED880B /* Debug */,
 				4019738625C8167800ED880B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40E1481925CBF582002E5463 /* Build configuration list for PBXNativeTarget "TaggedPointer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40E1481725CBF582002E5463 /* Debug */,
+				40E1481825CBF582002E5463 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
