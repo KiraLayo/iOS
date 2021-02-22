@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' executeOnSourceChanges='true'>
+<playground version='6.0' target-platform='ios'>
     <pages>
         <page name='invertTree'/>
         <page name='mergeTrees'/>
         <page name='nextPermutation'/>
         <page name='reverseList'/>
         <page name='deleteNode'/>
+        <page name='hammingWeight'/>
+        <page name='sortedArrayToBST'/>
+        <page name='getIntersectionNode'/>
+        <page name='runningSum'/>
     </pages>
 </playground>
