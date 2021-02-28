@@ -71,7 +71,7 @@ struct __xxx_block_desc_index {
 
 从 **Block** 的构造函数中可以看出 **Block** 就是Objective-C对象。
 
-## 捕获自动变量
+## 捕获变量
 
 ### 全局变量、静态全局变量
 
@@ -80,6 +80,10 @@ struct __xxx_block_desc_index {
 ### 静态变量
 
 在 **Block** 中使用 **静态变量** 会将静态变量那个的指针传递给 **Block** 结构体实例并保存。
+
+### 自动变量
+
+如果自动变量不是 **id类型或对象类型**， 会通过值传递捕获。
 
 ### **__block**
 
@@ -117,7 +121,7 @@ static void __main_block_func_index(struct __main_block_impl_index *__cself) {
 
 // 新增静态函数 copy/dispose
 static void __main_block_copy_index(struct __main_block_impl_index *dst, struct __main_block_impl_index *src) {
-    // 复制 __block 变量到堆
+    // 持有 __block 变量到堆
     // 具体根据捕获的自动变量的类型有变换
     __Block_object_assign(&dst->name, src->name, BLOCK_FIELD_IS_BYREF);
 }
@@ -179,7 +183,7 @@ static void __main_block_func_index(struct __main_block_impl_index *__cself) {
 
 // 新增静态函数 copy/dispose
 static void __main_block_copy_index(struct __main_block_impl_index *dst, struct __main_block_impl_index *src) {
-    // 复制 __block 变量到堆
+    // 持有 __block 变量到堆
     // 具体根据捕获的自动变量的类型有变换
     __Block_object_assign(&dst->name, src->name, BLOCK_FIELD_IS_OBJECT);
 }
@@ -204,9 +208,9 @@ static sturec __main_block_desc_index {
 转换后源代码在 **Block** 用结构体部分基本相同，用于**处理对象**的 **copy** 和 **dispose** 细节有区别。
 
 * 对象：**BLOCK_FIELD_IS_OBJECT**
-* **__block** 变量：BLOCK_FIELD_IS_BYREF
+* **__block** 变量： **BLOCK_FIELD_IS_BYREF**
 
-### **__block** 变量为附有修饰符的对象
+### **__block** 变量为附有修饰符的 **id类型或对象类型的对象时**
 
 struct __Block_byref_name_index {
     void *__isa;
@@ -279,11 +283,15 @@ __Block_byref_name_index name = {
 
 注意注释说明部分，上面代码部分主要是针对 **__strong** 修饰符的情况，其他修饰先考虑其内部处理，再考虑 **__block** 变量的处理。
 
-**__weak** 先考虑其是否nil， 如果为nil，就不需要.
+**__weak** 在使用时，也就时 **Block** 结构体变量函数调用时，需要判断是否为 **nil**，所以使 **__weak** 修饰的变量生存到能够使用的时候更为重要。
 
-**__autoreleasing** 无法与 **__block** 共存
+**__autoreleasing** 无法与 **__block** 共存。
 
 **__unsafe_unretained** 当成普通指针对待
+
+**注意**
+
+只有当 **__block** 修饰的是 **id类型或者对象类型** 时，**__block** 变量的结构体中才会有 **__Block_object_assgin** 和 **_Block_object_release**;
 
 ## Block 存储域
 
@@ -320,6 +328,25 @@ int main() {
 
 只在截获自动变量时，**Block** 用**结构体实例截获的值**才会根据执行时的状态变化，也就是根据保存那一刻的值来变化。
 
+## **__block** 变量存储域
+
+不同存储域的 __**block**，**copy** 时的效果：
+
+* 栈：从栈复制到堆上并被 **Block** 持有
+* 堆：被 **Block** **持有**
+
+在一个 **Block** 中使用 __**block** 变量，当该 **Block** 从栈复制到堆时，捕获的 __**block** 变量也全部被从栈复制到堆中，同时原先在栈中的 **__block** 变量用结构体实例的成员变量 **__forwarding** 会指向复制到**堆**上的**__block** 变量用结构体实例。
+
+**注意** 
+
+__**block** 变量结构体是与 **Block** 结构体独立的，多个 **Block** 结构体可以共同引用一个 __**block** 变量。
+
+最先 **Block** 会配置在栈上，**Block** 所使用的 __**block** 变量也在栈上，当任何一个 **Block** 从栈复制到堆上时，使用的**__block** 变量也会一并从栈复制到堆上，并通过调用 **Block** 用结构体的成员变量 **Desc** 的成员 **copy函数** 持有，之后的 **Block** 持有时，对应引用计数 + 1。
+
+在堆中，**Block** 持有 __**block** 变量，对应引用计数的变化，与**Objective-C** 之引用计数内存管理完全相同，包括多个 **Block** 持有 __**block** 变量的情况。
+
+当 **Block** 被释放，对应持有 __**block** 变量的引用计数也相应减少，直到为0释放。
+
 ## **Block** 及 **__block** 超出变量作用域可存在
 
 在栈上的 **Block** 及 **__block** 变量，当其作用域结束，变量就会被废弃，如果 **Block** 中有延时操作，将无法通过指针访问原来的自动变量。
@@ -330,9 +357,21 @@ int main() {
 
 **__block** 变量用结构体成员变量 **__forwarding** 可以实现无论 **__block** 变量配置在栈上还是堆上时都能够正确的访问 **__block** 变量。在 **__block** 变量配置在堆上的状态下，使栈上的 **__block** 变量结构体实例成员 **__forwarding** 指向对上的结构体实例。
 
-### 复制机制
+## 复制机制
 
-当 **ARC** 有效时，大多数情况下，编译器会恰当的判断，自动生成将 **Block** 从栈上复制到堆上的代码。
+**Block** 和 **__block** 用结构体中的对应成员的 **copy** 函数内实际调用的是 **_Block_object_assign** 函数，该函数实际是持有而不是复制。
+
+当 **ARC** 有效时，
+
+大多数情况下，编译器会恰当的判断，自动生成将 **Block** 从栈上复制到堆上的代码。
+
+当 **Block** 捕获id类型或对象类型的自动变量时（无论是否有 **__block** 说明符号），当 **Block** 从栈上复制到堆上时，会调用 **_Block_object_assign** 函数**持有**对象，当堆上的 **Block** 废弃时会调用 **_Block_object_dispose** 函数，如果 **__block** 变量为 **_strong** 修饰的**id类型或者对象类型**，当 **__block** 变量被复制到堆上时，也会调用 **__block** 结构体内的 **_Block_object_assign** 函数**持有**对象，当被释放时，调用 **_Block_object_dispose** 函数。
+
+**ARC** 无效时
+
+需要手动处理把 **Block** 从栈复制到堆，通过 **copy** 和 **release** 进行处理，当复制到堆上后，第一个 **Block** 会因为 **copy** 后引用，之后的 **Block** 可以通过 **retain** 方法持有。
+
+对 **栈上的Block** 使用 **retain** 没有任何作用。
 
 **可自动生成的情况：**
 
@@ -357,12 +396,9 @@ int main() {
     // 手动复制
     return [[NSArray alloc] initWithObjects:^(NSLog(@"..")).copy];
 }
-
 ```
 
-**重点：**
-
-**Block** 结构体实例复制到堆上，主要是依靠调用 **_Block_copy(block)** 方法，需要与 **Block** 用结构体中成员变量 **Desc** 中的copy区分。
+**Block** 结构体实例复制到堆上，主要是依靠调用 **_Block_copy(block)** 方法，需要与 **Block** 用结构体中成员变量 **Desc** 中的**copy** 成员变量区分。
 
 不同 **Block** 的 **copy** 效果：
 
@@ -393,29 +429,14 @@ blk = [[[blk copy] copy] copy];
 // ...
 ```
 
-## **__block** 变量存储域
-
-不同存储域的 __**block**，**copy** 时的效果：
-
-* 栈：从栈复制到堆上并被 **Block** 持有
-* 堆：被 **Block** 持有
-
-在一个 **Block** 中使用 __**block** 变量，当该 **Block** 从栈复制到堆时，使用的所有 __**block** 变量也必定配置在栈上，这些 __**block** 变量也全部被从栈复制到堆中，同时原先在栈中的 **__block** 变量用结构体实例的成员变量 **__forwarding** 会指向复制到**堆**上的**__block** 变量用结构体实例。
-
-**注意** 
-
-__**block** 变量结构体是与 **Block** 结构体独立的，多个 **Block** 结构体可以共同引用一个 __**block** 变量。
-
-最先 **Block** 会配置在栈上，**Block** 所使用的 __**block** 变量也在栈上，当任何一个 **Block** 从栈复制到堆上时，使用的**__block** 变量也会一并从栈复制到堆上，并被复制的 **Block** 持有，对应引用计数 + 1。
-
-**重点**
-
-在堆中，**Block** 持有 __**block** 变量，对应引用计数的变化，与**Objective-C** 之引用计数内存管理完全相同，包括多个 **Block** 持有 __**block** 变量的情况。
-
-当 **Block** 被释放，对应持有 __**block** 变量的引用计数也相应减少，直到为0释放。
-
 ## 解除循环引用
 
 可以通过 __weak、__unsafe_retained、__block，解除循环引用。
 
-**注意：** __block 在arc和非arc状态下，有区别，需要注意。__block可以通过执行 Block 控制持有时间（将其中一环置为**nil**）.
+**__block** 解除循环引用原因：
+
+当 **ARC** 无效时：
+
+若 **Block** 捕获的变量为附有 **__block** 说明符的 **id类型或对象类型** 的自动变量，因为 **Block** 复制到堆上时，会用 **Block** 用结构体的成员变量 **Desc** 的 **copy** 函数持有 **__block** 变量到堆上，**__block** 变量被复制到堆上时，会调用自身的 **copy** 函数，**持有**原来的变量，因为 **没有所有权修饰符**，所以不会有额外的所有权操作，也就不会被 **retain**。
+
+若 **Block** 捕获的变量为没有 **__block** 说明符的 **id类型或对象类型**，则会因为Block被复制到堆上时调用成员 **Desc** 的 **copy** 函数而持有，被 **retain**。
