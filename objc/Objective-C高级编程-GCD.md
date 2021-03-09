@@ -109,4 +109,45 @@ XUN内核在发生操作系统事件时（如每隔一定时间，换气系统�
 
 ### dispatch_after
 
+```C
+void dispatch_after(dispatch_time_t when, dispatch_queue_t queue, dispatch_block_t block);
+```
+
 在指定时间后，将处理 **追加** 到 **Dispatch Queue**，而不是指定时间后就执行。
+
+**dispatch_time_t**
+
+可以使用以下两种方式创建
+
+**dispatch_time_t dispatch_time(dispatch_time_t when, int64_t delta);**
+* 相对时间
+* 内部使用 **mach_absolute_time** 作为时钟
+* 以**滴答**为单位单调递增的时钟的当前值（从任意点开始），当系统处于睡眠状态时此时钟不会递增。改变当前系统时间无影响。
+* 当 **when** 是 **DISPATCH_WALLTIME_NOW** 时，其内部会使用 **gettimeofday(_:_:)** 作为时钟
+
+**dispatch_time_t dispatch_walltime(const struct timespec *when, int64_t delta);**
+* 绝对时间
+* 内部使用 **gettimeofday(_:_:)** 作为时钟
+* 以系统时间为准，与app是否唤醒无关。
+
+```C
+enum {
+	DISPATCH_WALLTIME_NOW DISPATCH_ENUM_API_AVAILABLE
+			(macos(10.14), ios(12.0), tvos(12.0), watchos(5.0))	= ~1ull,
+};
+
+#define DISPATCH_TIME_NOW (0ull)
+#define DISPATCH_TIME_FOREVER (~0ull)
+
+```
+
+```C
+// delta 纳秒
+#define NSEC_PER_SEC 1000000000ull /* nanoseconds per microsecond */
+#define NSEC_PER_MSEC 1000000ull /* microseconds per second */
+#define USEC_PER_SEC 1000000ull /* nanoseconds per second */
+#define NSEC_PER_USEC 1000ull /* nanoseconds per millisecond */
+```
+
+### Dispatch Group
+
