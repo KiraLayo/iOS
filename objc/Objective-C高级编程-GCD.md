@@ -151,3 +151,31 @@ enum {
 
 ### Dispatch Group
 
+```C
+// 创建Group
+dispatch_group_t dispatch_group_create(void);
+
+// 追加处理到指定的Group和Queue
+void dispatch_group_async(dispatch_group_t group, dispatch_queue_t queue, dispatch_block_t block);
+
+// 手动减少Group中的处理数
+void dispatch_group_enter(dispatch_group_t group);
+// 手动增加Group中的处理数
+void dispatch_group_leave(dispatch_group_t group);
+
+// 结束处理
+void dispatch_group_notify(dispatch_group_t group, dispatch_queue_t queue, dispatch_block_t block);
+
+// 结束处理, 当结果不为0时，表示还有未完成的任务。
+intptr_t dispatch_group_wait(dispatch_group_t group, dispatch_time_t timeout);
+```
+
+追加多个处理到指定的 **Dispatch Group** 中，并在指定的 **Dispatch Queue** 中运行，并且最后可以通过 **dispatch_group_notify** 或者 **dispatch_group_wait** 做**结束处理**， 此时 **Dispatch Group** 中的处理都已经完成（需要注意 **dispatch_group_wait** 的考虑）。
+
+**注意**：
+
+* 在 **Group** 中的 **Block** 可以运行在不同的 **Queue** 中
+* **Group** 持有外部所有 **Block**，GCD 持有 **Group**，直到所有的 **Block** 完成。
+* **dispatch_group_notify** 后如果未释放（**非ARC**），可以继续使用 **dispatch_group_async** 追加处理
+* 如果 **Group** 中没有处理，**dispatch_group_notify** 的结束处理将会立即执行
+* **dispatch_group_leave/dispatch_group_enter** 可以手动增加 **Group** 的处理计数，区别于调用 **dispatch_group_async**，可以使用这两个方法配合 **Block** 手动处理类似 **dispatch_group_async** 的调用，也就是 **Block** 调用前调用 **dispatch_group_enter**， **Block** 结束调用 **dispatch_group_leave**
