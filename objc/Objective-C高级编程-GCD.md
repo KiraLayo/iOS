@@ -179,3 +179,27 @@ intptr_t dispatch_group_wait(dispatch_group_t group, dispatch_time_t timeout);
 * **dispatch_group_notify** 后如果未释放（**非ARC**），可以继续使用 **dispatch_group_async** 追加处理
 * 如果 **Group** 中没有处理，**dispatch_group_notify** 的结束处理将会立即执行
 * **dispatch_group_leave/dispatch_group_enter** 可以手动增加 **Group** 的处理计数，区别于调用 **dispatch_group_async**，可以使用这两个方法配合 **Block** 手动处理类似 **dispatch_group_async** 的调用，也就是 **Block** 调用前调用 **dispatch_group_enter**， **Block** 结束调用 **dispatch_group_leave**
+
+### dispatch_barrier_X
+
+* 在 **barrier block** 之前的 **block** **执行完成之后**才会执行 **barrier block**，**barrier bloc** **执行完成后**，后续的 **block** 才会执行。
+* **queue** 需要使用 **dispatch_queue_create** 创建的 **concurrent queue**，如果使用 **serial queue** 或者 **global concurrent queues**，执行方式就会同 **dispatch_sync、dispatch_async** 相同
+
+#### dispatch_barrier_async
+
+```C
+void dispatch_barrier_async(dispatch_queue_t queue, dispatch_block_t block);
+```
+
+**queue**：会被系统持有，直到 **Block** 执行完毕
+**block**：被系统copy及持有，直到执行完毕 
+
+当 **Block** 被提交到队列后立即返回，不等待到其执行完毕。
+
+#### dispatch_barrier_sync
+
+```C
+void dispatch_barrier_sync(dispatch_queue_t queue, dispatch_block_t block);
+```
+
+**queue**：因同步执行，所以不会有 **Block_copy** 操作
