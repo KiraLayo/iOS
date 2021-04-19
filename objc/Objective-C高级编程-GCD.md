@@ -203,3 +203,27 @@ void dispatch_barrier_sync(dispatch_queue_t queue, dispatch_block_t block);
 ```
 
 **queue**：因同步执行，所以不会有 **Block_copy** 操作
+
+### dispatch_async
+
+将指定的 **Block** **非同步** 的追加到指定的 **Dispatch Queue** 中，不会等待 **Block** 执行完毕，会直接返回。
+
+### dispatch_sync
+
+将指定的 **Block** **同步** 追加到指定的 **Dispatch Queue** 中，**Block** 执行完成之前，会一直 **等待**，一般情况下会在 **dispatch_sync** 当前线程中执行，除非是提交到 **main dispatch queue** 将会在 **main thread** 中运行
+
+当在**串行队列**中使用时，会造成 **死锁**，因为只有一条线程， **dispatch_sync** 在等待 **Block** 的结束，**Block** 也在等待 **dispatch_sync** 的结束。
+
+### dispatch_apply
+
+```C
+// 在指定的Queue上提交iterations次Block
+// queue 可以使用 DISPATCH_APPLY_AUTO
+void dispatch_apply(size_t iterations, dispatch_queue_t queue, void (^block)(size_t));
+```
+
+如果追加到并发队列，则 **Block** 是并发执行的，但是要注意必须是可重入。
+
+### dispatch_suspend/dispatch_resume
+
+当有大量处理追加到 **Queue** 时，如果不想执行 **已追加但未执行** 的 **Block**，则可以是用 **dispatch_suspend** 进行挂起。后续需要执行时 **dispatch_resume** 恢复，对已经执行 **Block** 没有影响。
