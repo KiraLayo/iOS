@@ -222,8 +222,42 @@ void dispatch_barrier_sync(dispatch_queue_t queue, dispatch_block_t block);
 void dispatch_apply(size_t iterations, dispatch_queue_t queue, void (^block)(size_t));
 ```
 
-如果追加到并发队列，则 **Block** 是并发执行的，但是要注意必须是可重入。
+如果追加到并发队列，则 **Block** 是并发执行的，但是要注意必须是 **可重入**。
 
 ### dispatch_suspend/dispatch_resume
 
 当有大量处理追加到 **Queue** 时，如果不想执行 **已追加但未执行** 的 **Block**，则可以是用 **dispatch_suspend** 进行挂起。后续需要执行时 **dispatch_resume** 恢复，对已经执行 **Block** 没有影响。
+
+### Dispatch Semaphore
+
+持有计数的 **信号**， 该计数是多线程编程中的计数类型信号。计数为 **0** 时 **等待**， 计数为 **1或大于1** 时，**减去1** 而不等待。
+
+```C
+dispatch_semaphore_t dispatch_semaphore_create(intptr_t value);
+
+// 当dispatch_semaphore_t 计数为 0 时 等待到timeout，为1时继续执行
+intptr_t dispatch_semaphore_wait(dispatch_semaphore_t dsema, dispatch_time_t timeout);
+
+// 增加 dispatch_semaphore_t 计数，唤醒当前被wait的线程
+intptr_t dispatch_semaphore_signal(dispatch_semaphore_t dsema);
+
+```
+
+### dispatch_once
+
+
+```C
+// 在程序生命周期中，仅执行一次
+void dispatch_once(dispatch_once_t *predicate, dispatch_block_t block);
+
+static dispatch_once_t onceToken;
+dispatch_once(&onceToken, ^{
+    
+});
+
+```
+
+这个方法时线程安全的, predicate 可以是全局变量，也可以是静态变量。
+
+### Dispatch I/O
+
